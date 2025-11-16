@@ -1,0 +1,16 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="Chronos Application" type="JmixRunApplication">
+    <envs>
+      <env name="-Dspring.profiles.active" value="h2" />
+    </envs>
+    <option name="MAIN_CLASS_NAME" value="ru.kvas.chronos.ChronosApplication" />
+    <module name="chronos.main" />
+    <shortenClasspath name="ARGS_FILE" />
+    <method v="2">
+      <option name="JmixCleanConf" enabled="false" />
+      <option name="JmixCheckIncludes" enabled="false" />
+      <option name="JmixSyncDb" enabled="false" />
+      <option name="JmixAssemble" enabled="false" />
+    </method>
+  </configuration>
+</component>

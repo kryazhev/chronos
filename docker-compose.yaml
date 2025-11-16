@@ -1,0 +1,67 @@
+version: '3.8'
+services:
+  postgresql:
+    image: postgres:15
+    container_name: chronos-postgres
+    restart: always
+    environment:
+      POSTGRES_DB: chronos_db
+      POSTGRES_USER: chronos_user
+      POSTGRES_PASSWORD: chronos_pwd
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: [ "CMD-SHELL", "pg_isready -U chronos_user -d chronos_db" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - chronos-net
+
+  mysql:
+    image: mysql:8.0
+    container_name: chronos-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: chronos_db
+      MYSQL_USER: chronos_user
+      MYSQL_PASSWORD: chronos_pwd
+      MYSQL_ROOT_PASSWORD: root_pwd
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "chronos_user", "-pchronos_pwd"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    networks:
+      - chronos-net
+    command: --log-bin-trust-function-creators=1
+
+  chronos-app:
+    image: kvas0/chronos:0.0.1
+    container_name: chronos-app
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      MAIN_DATASOURCE_URL: jdbc:postgresql://postgresql/chronos_db
+      MAIN_DATASOURCE_USERNAME: chronos_user
+      MAIN_DATASOURCE_PASSWORD: chronos_pwd
+    depends_on:
+      postgresql:
+        condition: service_healthy
+    networks:
+      - chronos-net
+
+volumes:
+  postgres_data:
+  mysql_data:
+
+networks:
+  chronos-net:
+    driver: bridge

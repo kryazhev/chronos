@@ -1,0 +1,37 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chronos-deployment
+  labels:
+    app: chronos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chronos
+  template:
+    metadata:
+      labels:
+        app: chronos
+    spec:
+      containers:
+      - name: chronos
+        image: kvas0/chronos:0.0.2
+        ports:
+        - containerPort: 8080
+        env:
+        - name: MAIN_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: chronos-config
+              key: MAIN_DATASOURCE_URL
+        - name: MAIN_DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: chronos-config
+              key: MAIN_DATASOURCE_USERNAME
+        - name: MAIN_DATASOURCE_PASSWORD
+          valueFrom:
+            configMapKeyRef:
+              name: chronos-config
+              key: MAIN_DATASOURCE_PASSWORD
