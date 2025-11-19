@@ -20,27 +20,27 @@ services:
     networks:
       - chronos-net
 
-  mysql:
-    image: mysql:8.0
-    container_name: chronos-mysql
-    restart: always
-    environment:
-      MYSQL_DATABASE: chronos_db
-      MYSQL_USER: chronos_user
-      MYSQL_PASSWORD: chronos_pwd
-      MYSQL_ROOT_PASSWORD: root_pwd
-    ports:
-      - "3306:3306"
-    volumes:
-      - mysql_data:/var/lib/mysql
-    healthcheck:
-      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "chronos_user", "-pchronos_pwd"]
-      interval: 10s
-      timeout: 5s
-      retries: 5
-    networks:
-      - chronos-net
-    command: --log-bin-trust-function-creators=1
+#  mysql:
+#    image: mysql:8.0
+#    container_name: chronos-mysql
+#    restart: always
+#    environment:
+#      MYSQL_DATABASE: chronos_db
+#      MYSQL_USER: chronos_user
+#      MYSQL_PASSWORD: chronos_pwd
+#      MYSQL_ROOT_PASSWORD: root_pwd
+#    ports:
+#      - "3306:3306"
+#    volumes:
+#      - mysql_data:/var/lib/mysql
+#    healthcheck:
+#      test: ["CMD", "mysqladmin" ,"ping", "-h", "localhost", "-u", "chronos_user", "-pchronos_pwd"]
+#      interval: 10s
+#      timeout: 5s
+#      retries: 5
+#    networks:
+#      - chronos-net
+#    command: --log-bin-trust-function-creators=1
 
   chronos-app:
     image: kvas0/chronos:0.0.1
@@ -60,7 +60,7 @@ services:
 
 volumes:
   postgres_data:
-  mysql_data:
+#  mysql_data:
 
 networks:
   chronos-net:

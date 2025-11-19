@@ -56,7 +56,7 @@
 - **Файлы конфигурации:**
     - **`build.gradle`:** Определяет зависимости проекта, плагины и задачи сборки.
     - **`src/main/resources/application.properties`:** Основной файл конфигурации для приложения Spring Boot.
-    - **`Deployment.yaml`:** Конфигурация для развертывания (для Kubernetes\OpenShift).
+    - **`open-shift/*.yaml`:** Конфигурации для развертывания в Kubernetes/OpenShift.
 
 ## 5. Структура проекта
 
@@ -71,4 +71,5 @@
   - **menu.xml**: Конфигурация главного меню приложения.
 - **/src/main/frontend/**: Файлы фронтенда (например, кастомные стили CSS или компоненты).
 - **Dockerfile**: Инструкции для сборки Docker-образа.
-- **Deployment.yaml**: Конфигурация для развертывания (для Kubernetes\OpenShift).
+- **docker-compose.yaml**: Конфигурация для локального запуска с помощью Docker Compose.
+- **open-shift/**: Файлы для развертывания в Kubernetes/OpenShift.

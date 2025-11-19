@@ -9,7 +9,7 @@ import org.springframework.security.web.SecurityFilterChain;
 
 /**
  * This configuration complements standard security configurations that come from Jmix modules (security-flowui, oidc,
- * authserver).
+ * auth-server).
  * <p>
  * You can configure custom API endpoints security by defining {@link SecurityFilterChain} beans in this class.
  * In most cases, custom SecurityFilterChain must be applied first, so the proper

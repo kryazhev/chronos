@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: chronos
-        image: kvas0/chronos:0.0.2
+        image: kvas0/chronos:0.0.1
         ports:
         - containerPort: 8080
         env:
