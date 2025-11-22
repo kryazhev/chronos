@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<view xmlns="http://jmix.io/schema/flowui/view" title="msg://workLogListView.title"
+  focusComponent="workLogsDataGrid">
+  <data>
+    <collection id="workLogsDc"
+      class="ru.kvas.chronos.entity.WorkLog">
+      <fetchPlan extends="_base">
+        <property name="user" fetchPlan="_instance_name"/>
+      </fetchPlan>
+      <loader id="workLogsDl" readOnly="true">
+        <query>
+          <![CDATA[select e from WorkLog e]]>
+        </query>
+      </loader>
+    </collection>
+  </data>
+  <facets>
+    <dataLoadCoordinator auto="true"/>
+    <urlQueryParameters>
+      <genericFilter component="genericFilter"/>
+      <pagination component="pagination"/>
+    </urlQueryParameters>
+  </facets>
+  <actions>
+    <action id="selectAction" type="lookup_select"/>
+    <action id="discardAction" type="lookup_discard"/>
+  </actions>
+  <layout>
+    <genericFilter id="genericFilter"
+      dataLoader="workLogsDl">
+      <properties include=".*"/>
+    </genericFilter>
+    <hbox id="buttonsPanel" classNames="buttons-panel">
+      <startSlot>
+        <button id="createButton" action="workLogsDataGrid.createAction"/>
+        <button id="editButton" action="workLogsDataGrid.editAction"/>
+        <button id="removeButton" action="workLogsDataGrid.removeAction"/>
+      </startSlot>
+      <endSlot>
+        <simplePagination id="pagination" dataLoader="workLogsDl"/>
+      </endSlot>
+    </hbox>
+    <dataGrid id="workLogsDataGrid"
+      width="100%"
+      minHeight="20em"
+      dataContainer="workLogsDc"
+      columnReorderingAllowed="true">
+      <actions>
+        <action id="createAction" type="list_create"/>
+        <action id="editAction" type="list_edit"/>
+        <action id="removeAction" type="list_remove"/>
+      </actions>
+      <columns resizable="true">
+        <column property="user"/>
+        <column property="timestamp"/>
+        <column property="type"/>
+        <column property="latitude"/>
+        <column property="longitude"/>
+        <column property="photoUrl"/>
+      </columns>
+    </dataGrid>
+    <hbox id="lookupActions" visible="false">
+      <button id="selectButton" action="selectAction"/>
+      <button id="discardButton" action="discardAction"/>
+    </hbox>
+  </layout>
+</view>
